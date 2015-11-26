@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title><%= title %></title>
+
+  <!-- CSS  -->
+  <link href="http://cdn.bootcss.com/material-design-icons/2.0.0/iconfont/style.min.css" rel="stylesheet">
+  <link href="bower_components/Materialize/dist/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <ul class="right hide-on-med-and-down">
+        <% if(user){%>
+        <li><a href="/logout">退出</a></li>
+        <% }else{ %>
+        <li><a href="/login">登陆</a></li>
+        <% } %>
+
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <% if(user){%>
+        <li><a href="/logout">退出</a></li>
+        <% }else{ %>
+        <li><a href="/login">登陆</a></li>
+        <% } %>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+    <div class = "container">
+      <canvas id="canvas" height="200" width="450"></canvas>
+     <div class = "center">
+      <h4>今日预测结果：<%= preValue %></h4>
+      <h4>今日实际结果：<%= trueValue %></h4>
+     </div>
+     <div class = "center">
+        <button id = "up" class="btn-large waves-effect waves-light red lighten-1">猜涨</button>
+        <button id = "down" class="btn-large waves-effect waves-light  lighten-1">猜跌</button>
+      </div>
+    </div>
+
+
+  <!--  Scripts-->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/Chart.js/Chart.min.js"></script>
+  <script src="bower_components/Materialize/dist/js/materialize.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/init.js"></script>
+
+  </body>
+</html>

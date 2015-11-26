@@ -1,0 +1,4 @@
+var data=require('../data')
+
+//数据初始化工作
+data.ciaSync()

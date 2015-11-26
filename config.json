@@ -1,0 +1,15 @@
+{
+  "development": {
+    "host":"localhost",
+    "port":"3333",
+    "predict":11
+  },
+  "production": {
+    "host":"123.57.138.73",
+    "port":"3333",
+    "predict":9
+  },
+  "analyse" : {
+    "url":"http://localhost:3333"
+  }
+}

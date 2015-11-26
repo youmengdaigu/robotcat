@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+  <title><%= title %></title>
+
+  <!-- CSS  -->
+  <link href="http://cdn.bootcss.com/material-design-icons/2.0.0/iconfont/style.min.css" rel="stylesheet">
+  <link href="bower_components/Materialize/dist/css/materialize.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+ <nav class="white" role="navigation">
+    <div class="nav-wrapper container">
+      <ul class="right hide-on-med-and-down">
+              <li><a href="/login">登陆</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="/login">登陆</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <div class="section no-pad-bot">
+    <div class="container">
+      <h2 class="header center black-text">沪深300竞猜</h2>
+      <div class="container">
+        <div class="section">
+            <div class="col s12 m4">
+              <div class="icon-block">
+                <h5 class="center">竞猜规则</h5>
+                <p class="light">利用神经网络将单个投资者的决策融合在一起形成集体决策，这种方式有利于避免单个投资者的信息盲点，充分利用群体决策的优势。</p>
+              </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="row center">
+      <form method="post" action="/login">
+        <input name="username"  type="text" placeholder='姓名' />
+        <input name="password" type="password" placeholder='密码' />
+        <button type="submit" class=" loginBtn btn-large waves-effect waves-light red lighten-1">登陆</button>
+      </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!--  Scripts-->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/Materialize/dist/js/materialize.min.js"></script>
+  <script src="js/init.js"></script>
+  </body>
+</html>
