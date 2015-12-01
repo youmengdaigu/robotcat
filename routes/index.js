@@ -8,6 +8,7 @@ var router = express.Router();
 //竞猜页面
 ///////////////////////////////////////////////////
 router.get('/', function(req, res) {
+  console.log(req.session.user);
   if (!req.session.user) {
     res.redirect('/login');
   }else{
