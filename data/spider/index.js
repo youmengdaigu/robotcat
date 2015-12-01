@@ -19,7 +19,7 @@ exports.updateHS300 = function(){
 
 //针对cia初始化
 exports.ciaSync = function(){
-	exec('python ../data/spider/ciaSync.py',{
+	exec('python ../data/spider/ciasync.py',{
 		maxBuffer: 5000 * 1024
 	})
 		.then(function(stdout){

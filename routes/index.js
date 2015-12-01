@@ -3,6 +3,8 @@ var User = require('../db/models').User;
 var Result = require('../db/models').Result;
 var router = express.Router();
 
+
+
 //竞猜页面
 ///////////////////////////////////////////////////
 router.get('/', function(req, res) {
@@ -10,17 +12,28 @@ router.get('/', function(req, res) {
     res.redirect('/login');
   }else{
     var time = today();
+    var tradeAble = tradeTime(time);
     Result.findOrCreate({where:{time:time},defaults:{time:time}})
     .spread(function(result){
+      preValue = toStr(result.preValue);
+      trueValue = toStr(result.trueValue);
       res.render('index', {
         title: '竞猜页',
-        preValue:result.preValue,
-        trueValue:result.trueValue,
+        time :time,
+        tradeAble:tradeAble,
+        preValue:preValue,
+        trueValue:trueValue,
         user:req.session.user
       });
     });
   }
 });
+
+//注册页面
+router.post('/reg',function(req,res){
+  var name = req.body.name,
+      password = req.body.password
+})
 
 //登陆页面
 ///////////////////////////////////////////////////
@@ -52,6 +65,15 @@ router.get('/logout', function(req, res){
 });
 
 
+function toStr(value){
+  if (value>0){
+      return '涨';
+    }else if (value<0){
+      return '跌';
+    }else{
+      return '无';
+  }
+}
 
 
 //获取今天的时间
@@ -64,5 +86,15 @@ function today(){
   return time;
 }
 
+//判断当天是否是交易时间
+function tradeTime(time){
+  var config = require('../config');
+  var list = config["analyse"]["untradeTime"];
+  if (list.indexOf(time)=== -1){
+    return true;
+  }else{
+    return false;
+  }
+}
 
 module.exports = router;

@@ -59,3 +59,22 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+
+/*首页样式*/
+.history{
+    background-color: #fff;
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.history a{
+  vertical-align: center;
+}
+
+
+.material-icons{
+  color:white;
+}

@@ -12,7 +12,7 @@ def updateHS300():
 		save(-1,time)
 	elif a > 0:
 		save(1,time)
-	elif a > 0:
+	elif a == 0:
 		save(0,time)
 
 #将HS300数据存储到数据库中
@@ -25,10 +25,21 @@ def save(trueValue,time):
 
 #获取HS300的数据
 def getHS300():
-	url = "http://hq.sinajs.cn/list=s_sh000300"
+	url = "http://cjhq.baidu.com/quote?s4=399300.sz"
 	r = requests.get(url)
-	hs300 = float(r.text.split(',')[3])
-	return hs300
+	rlist = r.text.split('"')
+	op =float(rlist[7])
+	la = float(rlist[17])
+	time = datetime.strptime(rlist[21], "%Y-%m-%d %H:%M:%S").date()
+	now = datetime.now()
+	if op>la:
+		hs300 = -1
+	else:
+		hs300 = 1
+	if time.day == now.day:
+		return hs300
+	else:
+		return 0
 
 #读取配置信息
 def config():

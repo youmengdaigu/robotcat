@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var redisStore = require('connect-redis')(session);
 var data = require('./data');
+var weixin = require('./weixin');
 var app = express();
 
 // view engine setup
@@ -38,10 +39,12 @@ var routes = require('./routes/index');
 var guess = require('./routes/api/guess');
 var result = require('./routes/api/result');
 var user = require('./routes/api/user');
+var weixinAPI = require('./weixin/weixin');
 app.use('/', routes);
 app.use('/api',guess);
 app.use('/api',result);
 app.use('/api',user);
+weixinAPI(app);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -73,10 +76,11 @@ app.use(function(err, req, res, next) {
   });
 });
 
+
 // 跑批工作
 // =============================================================================
 data.schedule();
-
+weixin.schedule();
 
 
 

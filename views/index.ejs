@@ -11,8 +11,10 @@
   <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 </head>
 <body>
-  <nav class="white" role="navigation">
+  <!-- 头部 -->
+  <nav class="light-blue darken-4 z-depth-4" role="navigation">
     <div class="nav-wrapper container">
+      <a id="logo-container" href="#" class="brand-logo white-text">猜涨跌</a>
       <ul class="right hide-on-med-and-down">
         <% if(user){%>
         <li><a href="/logout">退出</a></li>
@@ -32,17 +34,42 @@
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>
-    <div class = "container">
-      <canvas id="canvas" height="200" width="450"></canvas>
-     <div class = "center">
-      <h4>今日预测结果：<%= preValue %></h4>
-      <h4>今日实际结果：<%= trueValue %></h4>
-     </div>
-     <div class = "center">
-        <button id = "up" class="btn-large waves-effect waves-light red lighten-1">猜涨</button>
-        <button id = "down" class="btn-large waves-effect waves-light  lighten-1">猜跌</button>
-      </div>
+  <!-- 正文内容 -->
+  <div class ="light-blue darken-3">
+    <br>
+    <div class ="container">
+        <canvas id="canvas"  height="200" width="450"></canvas>
+        <div class="light-blue darken-3 center white-text">预测准确率</div>
     </div>
+    <br>
+  </div>
+
+  <div>
+    <div class="row"></div>
+    <div class="row">
+      <div class="col s6 center">沪深300<h4><%= trueValue %></h4></div>
+      <div class="col s6 center">模型预测<h4><%= preValue %></h4></div>
+    </div>
+  </div>
+  <div class="row center">
+    <% if(tradeAble){ %>
+      <button id = "up" class="btn waves-effect waves-light red lighten-1">猜涨</button>
+      <button id = "down" class="btn waves-effect waves-light  lighten-1">猜跌</button>
+    <% }else{%>
+      <p class="grey-text"> 非交易日</p>
+    <% }%>
+  </div>
+
+
+      <!-- 历史投资记录 -->
+  <ul id = "history" class="collection with-header">
+    <li class="row collection-item">
+        <div class="col s4 ">历史日期</div>
+        <div class="col s4 center">沪深300</div>
+        <div class="col s4 center">模型预测</div>
+      </div>
+    </li>
+  </ul>
 
 
   <!--  Scripts-->

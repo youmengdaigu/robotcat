@@ -1,15 +1,25 @@
 {
+  "weixin":{
+    "token":"weixin",
+    "getToken":"1 23 * * * *",
+    "appID":"wx947add0ef3aea4d9",
+    "appsecret":"7dbb76e70d9266e893fc5fcf99626385"
+  },
   "development": {
     "host":"localhost",
-    "port":"3333",
-    "predict":11
+    "port":"4444",
+    "predict":"0 35 10 * * *",
+    "updateHS300":"1 * * * * *"
+
   },
   "production": {
     "host":"123.57.138.73",
-    "port":"3333",
-    "predict":9
+    "port":"4444",
+    "predict":"0 0 9 * * *",
+    "updateHS300":"1 * * * * *"
   },
   "analyse" : {
-    "url":"http://localhost:3333"
+    "url":"http://localhost:4444",
+    "untradeTime":["20151128","20151129"]
   }
 }

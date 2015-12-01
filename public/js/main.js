@@ -6,7 +6,7 @@
 	        type: 'POST',
 	        data: "result=1",
 	        success: function(response) {
-				alert(response);
+				Materialize.toast(response, 1000);
 	        },
 	        error: function(){
 	        	alert('竞猜失败');
@@ -20,7 +20,7 @@
 	        type: 'POST',
 	        data: "result=-1",
 	        success: function(response) {
-				alert(response);
+				Materialize.toast(response, 1000);
 	        },
 	        error: function(){
 	        	alert('更新失败');
@@ -36,7 +36,13 @@
 				var timeSet = [];
 				var rate = [];
 				var correct = 0;
+				var length = results.length
 				results.forEach(function(result,i){
+					var html = "<li class='row collection-item'><div class='col s4'>"+results[length-i-1]['time']+
+					"</div><div class='col s4 center'>"+toStr(results[length-i-1]['trueValue'])+"</div><div class='col s4 center'>"+
+					toStr(results[length-i-1]['preValue'])+"</div></li>";
+
+					$("#history").append(html);
 					if (result['preValue'] === result['trueValue']){
 						correct++;
 						rate.push((correct/(i+1)).toFixed(3));
@@ -55,15 +61,27 @@
 							pointColor : "rgba(151,187,205,1)",
 							pointStrokeColor : "#fff",
 							pointHighlightFill : "#fff",
-							pointHighlightStroke : "rgba(151,187,205,1)",
+							pointHighlightStroke : "#fff",
 							data : rate
 						}
 					]
 				}
 				var ctx = document.getElementById("canvas").getContext("2d");
 				window.myLine = new Chart(ctx).Line(lineChartData, {
-					responsive: true
+					responsive: true,
+					scaleFontColor : "#fff",
+					scaleShowGridLines : false,
+					scaleShowLabels : true
 				});
+				function toStr(value){
+				  if (value>0){
+				      return '涨';
+				    }else if (value<0){
+				      return '跌';
+				    }else{
+				      return '无';
+				  }
+				}
 			}
 		})
 	}

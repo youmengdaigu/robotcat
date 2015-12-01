@@ -24,23 +24,41 @@ exports.ciaSync = function(){
 }
 
 function predict(){
-	var rule = new schedule.RecurrenceRule();
-		//每天早上9点更新预测结果
-	rule.hour = config['predict'];
-	schedule.scheduleJob(rule,function(){
-		analyse.predict();
+	schedule.scheduleJob(config["predict"],function(){
+		if(tradeTime(today())){
+			analyse.predict();
+		}
 	});
 }
 
 function updateHS300(){
-	var rule = new schedule.RecurrenceRule();
-	var times = [];
-	for(var i=1; i<60; i++){
-		times.push(i);
-	}
-	rule.minute = times;
-	schedule.scheduleJob(rule, function(){
-		spider.updateHS300();
+	schedule.scheduleJob(config["updateHS300"], function(){
+		if(tradeTime(today())){
+			spider.updateHS300();
+		}
 	});
 
 }
+
+//获取今天的时间
+function today(){
+	var d = new Date();
+	var year = d.getFullYear().toString();
+	var month = (d.getMonth()+1).toString();
+	var day = d.getDate().toString();
+	var time = year+month+day;
+	return time;
+}
+
+//判断当天是否是交易时间
+function tradeTime(time){
+	var config = require("../config");
+	var list = config["analyse"]["untradeTime"];
+	if (list.indexOf(time)=== -1){
+	return true;
+	}else{
+	return false;
+	}
+}
+
+
