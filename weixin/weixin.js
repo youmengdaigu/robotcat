@@ -66,9 +66,9 @@ module.exports = function(app){
 function weixinLogin(openID,callback){
   weixin.getUserInfo(openID,function(userInfo){
     console.log(userInfo);
-    var username = userInfo.nickname;
-    console.log(username);
-    User.findOrCreate({where:{username:username},defaults:{username:username,password:'123456'}})
+    var user = JSON.parse(userInfo);
+    console.log(user["nickname"]);
+    User.findOrCreate({where:{username:user["nickname"]},defaults:{username:user["nickname"],password:'123456'}})
     .spread(function(user){
       callback(user);
     });
