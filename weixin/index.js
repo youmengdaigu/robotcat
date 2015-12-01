@@ -61,15 +61,15 @@ exports.createMenu = function(callback){
 			    {
 					"type":"view",
 					"name":"猜涨跌",
-					"url":"http://123.57.138.73:1111"},
+					"url":"http://123.57.138.73"},
 			    {
 			    	"type":"view",
 					"name":"琅琊榜",
-					"url":"http://123.57.138.73:1111"},
+					"url":"http://123.57.138.73"},
 				{
 		    	"type":"view",
 				"name":"我的主页",
-				"url":"http://123.57.138.73:1111"}]
+				"url":"http://123.57.138.73"}]
 			},
 			json: true
 		};

@@ -19,7 +19,10 @@ module.exports = function(app){
       if(message.Event === "subscribe"){
         var openID = message.FromUserName;
         //判断用户是否注册如果没有注册则注册用户
-        weixinLogin(req,openID);
+        weixinLogin(openID,function(user){
+          req.session.user = user;
+          console.log('登陆成功！')
+        });
       }
     }
 
@@ -59,20 +62,15 @@ module.exports = function(app){
 }
 
 //当用户关注时执行注册
-function weixinLogin(req,openID){
+function weixinLogin(openID,callback){
   weixin.getUserInfo(openID,function(userInfo){
     var username = userInfo.nickname;
     User.findOrCreate({where:{username:username},defaults:{username:username,password:'123456'}})
     .spread(function(user){
-      req.session.user = user;
-      console.log('登陆成功！');
+      callback(user);
     });
   })
 }
-
-
-
-
 
 
 
