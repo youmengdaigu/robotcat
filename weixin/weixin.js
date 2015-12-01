@@ -21,7 +21,8 @@ module.exports = function(app){
         //判断用户是否注册如果没有注册则注册用户
         weixinLogin(openID,function(user){
           req.session.user = user;
-          console.log('登陆成功！')
+          console.log(req.session.user);
+          console.log('登陆成功！');
         });
       }
     }
