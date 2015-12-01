@@ -69,8 +69,8 @@ function weixinLogin(openID,callback){
     var user = JSON.parse(userInfo);
     console.log(user["nickname"]);
     User.findOrCreate({where:{username:user["nickname"]},defaults:{username:user["nickname"],password:'123456'}})
-    .spread(function(user){
-      callback(user);
+    .spread(function(u){
+      callback(u);
     });
   })
 }
