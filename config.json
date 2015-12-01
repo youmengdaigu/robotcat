@@ -8,18 +8,18 @@
   "development": {
     "host":"localhost",
     "port":"4444",
-    "predict":"0 35 10 * * *",
+    "predict":"1 1 9 * * *",
     "updateHS300":"1 * * * * *"
 
   },
   "production": {
     "host":"123.57.138.73",
     "port":"4444",
-    "predict":"0 0 9 * * *",
+    "predict":"1 1 9 * * *",
     "updateHS300":"1 * * * * *"
   },
   "analyse" : {
-    "url":"http://localhost:4444",
+    "url":"http://123.57.138.73",
     "untradeTime":["20151128","20151129"]
   }
 }
