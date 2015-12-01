@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "123456",
-    "database": "HS300_development",
+    "database": "robotcat_development",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
@@ -15,8 +15,8 @@
   },
   "production": {
     "username": "root",
-    "password": null,
-    "database": "database_production",
+    "password": "123456",
+    "database": "robotcat_production",
     "host": "127.0.0.1",
     "dialect": "mysql"
   }

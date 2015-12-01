@@ -22,13 +22,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: 'HS300',
+  secret: 'robotcat',
   saveUninitialized: true,
   resave: false,
   store: new redisStore({
     host: 'localhost',
     port: 6379,
-    db: 2
+    db: 3
   })
 }));
 

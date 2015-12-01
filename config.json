@@ -19,7 +19,7 @@
     "updateHS300":"1 * * * * *"
   },
   "analyse" : {
-    "url":"http://123.57.138.73",
+    "url":"http://localhost:4444",
     "untradeTime":["20151128","20151129"]
   }
 }
