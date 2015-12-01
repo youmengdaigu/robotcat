@@ -65,7 +65,9 @@ module.exports = function(app){
 //当用户关注时执行注册
 function weixinLogin(openID,callback){
   weixin.getUserInfo(openID,function(userInfo){
+    console.log(userInfo);
     var username = userInfo.nickname;
+    console.log(username);
     User.findOrCreate({where:{username:username},defaults:{username:username,password:'123456'}})
     .spread(function(user){
       callback(user);
