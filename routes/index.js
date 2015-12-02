@@ -39,9 +39,11 @@ router.get('/oauth',function(req,res){
   console.log(code);
   //获取用户信息
   weixin.getUserInfo(code,function(user){
-    console.log(user);
-    res.session.user = user;
-    res.redirect('/');
+    User.findOrCreate({where:{username:user.nickname},defaults:{username:user.nickname,password:"123456"}})
+    .spread(function(user){
+      req.session.user = user;
+      res.redirect('/');
+    });
   });
 });
 
