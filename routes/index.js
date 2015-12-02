@@ -9,7 +9,6 @@ var router = express.Router();
 //竞猜页面
 ///////////////////////////////////////////////////
 router.get('/', function(req, res) {
-  console.log(req.session.user);
   if (!req.session.user) {
     //获取url
     var url = weixin.getOathUrl();
@@ -36,7 +35,6 @@ router.get('/', function(req, res) {
 
 router.get('/oauth',function(req,res){
   var code = req.query.code;
-  console.log(code);
   //获取用户信息
   weixin.getUserInfo(code,function(user){
     User.findOrCreate({where:{username:user.nickname},defaults:{username:user.nickname,password:"123456"}})
