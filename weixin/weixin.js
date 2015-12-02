@@ -14,16 +14,6 @@ module.exports = function(app){
     // 微信输入信息都在req.weixin上
     var message = req.weixin;
     console.log(message);
-    //判断消息事件是否是关注和点击事件
-    if (message.MsgType === "event"){
-      if(message.Event === "subscribe"){
-        var openID = message.FromUserName;
-        //判断用户是否注册如果没有注册则注册用户
-        weixinLogin(openID,function(user){
-          console.log("保存成功")
-        });
-      }
-    }
 
     if (message.FromUserName === 'ojFjxwPPT21s-J-50L8w86a-IJDQ') {
       // 回复屌丝(普通回复)
@@ -60,16 +50,6 @@ module.exports = function(app){
   }));
 }
 
-//当用户关注时执行注册
-function weixinLogin(openID,callback){
-  weixin.getUserInfo(openID,function(userInfo){
-    var user = JSON.parse(userInfo);
-    User.findOrCreate({where:{username:user["nickname"]},defaults:{username:user["nickname"],password:'123456'}})
-    .spread(function(u){
-      callback(u);
-    });
-  })
-}
 
 
 
