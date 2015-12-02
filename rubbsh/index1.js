@@ -11,9 +11,7 @@ var router = express.Router();
 router.get('/', function(req, res) {
   console.log(req.session.user);
   if (!req.session.user) {
-    //获取url
-    var url = weixin.getOathUrl();
-    res.redirect(url);
+    res.redirect('/login');
   }else{
     var time = today();
     var tradeAble = tradeTime(time);
@@ -33,18 +31,40 @@ router.get('/', function(req, res) {
   }
 });
 
+//注册页面
+router.post('/reg',function(req,res){
+  var name = req.body.name,
+      password = req.body.password
+})
 
-router.get('/oauth',function(req,res){
-  var code = req.body.code;
-  //获取用户信息
-  weixin.getUserInfo(code,function(user){
-    console.log(user);
-    res.session.user = user;
-    res.redirect('/');
+//登陆页面
+///////////////////////////////////////////////////
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: '首页' });
+});
+
+//注册登陆模块
+///////////////////////////////////////////////////
+router.post('/login', function (req, res) {
+  //检查用户是否存在
+  User.findOne({where:{username:req.body.username}}).then(function (user) {
+    if (!user) {
+      res.redirect('/login');
+    }
+    //检查密码是否一致
+    if (user['dataValues'].password != req.body.password) {
+      res.redirect('/login');
+    }
+    //用户名密码都匹配后，将用户信息存入 session
+    req.session.user = user;
+    res.redirect('/');//登陆成功后跳转到竞猜页
   });
 });
 
-
+router.get('/logout', function(req, res){
+  req.session.user = null;
+  res.redirect('/login');//返回首页
+});
 
 
 function toStr(value){
@@ -78,6 +98,11 @@ function tradeTime(time){
     return false;
   }
 }
+//判断session中是否保存了用户的信息
+function checkSession(){
+  weixin.get
+}
+
 
 
 module.exports = router;

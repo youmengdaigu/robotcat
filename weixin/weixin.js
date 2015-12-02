@@ -20,16 +20,7 @@ module.exports = function(app){
         var openID = message.FromUserName;
         //判断用户是否注册如果没有注册则注册用户
         weixinLogin(openID,function(user){
-          req.session.user = user;
-          console.log(user);
-          console.log(req.session.user);
-          console.log('登陆成功！');
-        });
-      }else if(message.Event === "VIEW"){
-        var openID = message.FromUserName;
-        weixinLogin(openID,function(user){
-          req.session.user = user;
-          res.redirect('/');
+          console.log("保存成功")
         });
       }
     }
@@ -72,9 +63,7 @@ module.exports = function(app){
 //当用户关注时执行注册
 function weixinLogin(openID,callback){
   weixin.getUserInfo(openID,function(userInfo){
-    console.log(userInfo);
     var user = JSON.parse(userInfo);
-    console.log(user["nickname"]);
     User.findOrCreate({where:{username:user["nickname"]},defaults:{username:user["nickname"],password:'123456'}})
     .spread(function(u){
       callback(u);

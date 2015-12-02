@@ -3,7 +3,9 @@
     "token":"weixin",
     "getToken":"1 52 * * * *",
     "appID":"wx947add0ef3aea4d9",
-    "appsecret":"7dbb76e70d9266e893fc5fcf99626385"
+    "appsecret":"7dbb76e70d9266e893fc5fcf99626385",
+    "redirectUrl":"http://123.57.138.73/oauth",
+    "state":"123"
   },
   "development": {
     "host":"localhost",
