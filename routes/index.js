@@ -35,7 +35,8 @@ router.get('/', function(req, res) {
 
 
 router.get('/oauth',function(req,res){
-  var code = req.body.code;
+  var code = req.query.code;
+  console.log(code);
   //获取用户信息
   weixin.getUserInfo(code,function(user){
     console.log(user);
