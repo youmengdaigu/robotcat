@@ -14,14 +14,6 @@ module.exports = function(app){
     // 微信输入信息都在req.weixin上
     var message = req.weixin;
     console.log(message);
-    //判断消息事件是否是关注和点击事件
-    if (message.MsgType === "event"){
-      if(message.Event === "subscribe"){
-        var openID = message.FromUserName;
-        //判断用户是否注册如果没有注册则注册用户
-        weixinLogin(req,openID);
-      }
-    }
 
     if (message.FromUserName === 'ojFjxwPPT21s-J-50L8w86a-IJDQ') {
       // 回复屌丝(普通回复)
@@ -57,55 +49,6 @@ module.exports = function(app){
     }
   }));
 }
-
-//当用户关注时执行注册
-function weixinLogin(req,openID){
-  weixin.getUserInfo(openID,function(userInfo){
-    var username = userInfo.nickname;
-    User.findOrCreate({where:{username:username},defaults:{username:username,password:'123456'}})
-    .spread(function(user){
-      req.session.user = user;{
-          // The tab key will cycle through the settings when first created
-          // Visit http://wbond.net/sublime_packages/sftp/settings for help
-          
-          // sftp, ftp or ftps
-          "type": "sftp",
-      
-          "sync_down_on_open": true,
-          "sync_same_age": true,
-          
-          "host": "example.com",
-          "user": "username",
-          //"password": "password",
-          //"port": "22",
-          
-          "remote_path": "/example/path/",
-          //"file_permissions": "664",
-          //"dir_permissions": "775",
-          
-          //"extra_list_connections": 0,
-      
-          "connect_timeout": 30,
-          //"keepalive": 120,
-          //"ftp_passive_mode": true,
-          //"ftp_obey_passive_host": false,
-          //"ssh_key_file": "~/.ssh/id_rsa",
-          //"sftp_flags": ["-F", "/path/to/ssh_config"],
-          
-          //"preserve_modification_times": false,
-          //"remote_time_offset_in_hours": 0,
-          //"remote_encoding": "utf-8",
-          //"remote_locale": "C",
-          //"allow_config_upload": false,
-      }
-      
-      console.log('登陆成功！');
-    });
-  })
-}
-
-
-
 
 
 

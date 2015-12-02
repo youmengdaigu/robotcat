@@ -24,6 +24,7 @@
     "sequelize": "^3.14.1",
     "sequelize-cli": "^2.1.1",
     "serve-favicon": "~2.3.0",
-    "wechat": "^2.0.3"
+    "wechat": "^2.0.3",
+    "wechat-oauth": "^1.1.0"
   }
 }

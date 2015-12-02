@@ -3,6 +3,7 @@ var Promise = require("bluebird");
 var redis = require("redis");
 var schedule = require('node-schedule');
 var weixinCon = require("../config")["weixin"];
+
 Promise.promisifyAll(redis.RedisClient.prototype);
 Promise.promisifyAll(redis.Multi.prototype);
 var c = redis.createClient();
@@ -23,13 +24,22 @@ exports.schedule = function(){
 
 //用户管理
 // =============================================================================
-//获根据openID取用户基本信息（UnionID）
-exports.getUserInfo = function(openId,callback){
-	c.getAsync("access_token").then(function(access_token){
-		var url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+access_token+"&openid="+openId+"&lang=zh_CN"
-		request(url).then(function(response){
-			callback(response);
-		});
+//建立客户端
+var OAuth = require('wechat-oauth');
+var client = new OAuth(weixinCon["appID"], weixinCon["appsecret"]);
+//获取url
+exports.getOathUrl = function(){
+	var url = client.getAuthorizeURL(weixinCon["redirectUrl"],weixinCon["state"],"snsapi_userinfo");
+	return url;
+}
+
+//oath获取用户信息
+exports.getUserInfo = function(code,callback){
+	client.getAccessToken(code,function(err,result){
+		var openid = result.data.openid;
+		client.getUser(openid,function(err,result){
+			callback(result);
+		})
 	});
 }
 
@@ -61,15 +71,15 @@ exports.createMenu = function(callback){
 			    {
 					"type":"view",
 					"name":"猜涨跌",
-					"url":"http://123.57.138.73:1111"},
+					"url":"http://123.57.138.73"},
 			    {
 			    	"type":"view",
 					"name":"琅琊榜",
-					"url":"http://123.57.138.73:1111"},
+					"url":"http://123.57.138.73"},
 				{
 		    	"type":"view",
 				"name":"我的主页",
-				"url":"http://123.57.138.73:1111"}]
+				"url":"http://123.57.138.73"}]
 			},
 			json: true
 		};
