@@ -25,7 +25,7 @@ def getData():
 	for i in xrange(0,len(guesses)):
 		t = guesses[i]['time']
 		id = guesses[i]['UserId']
-		result = guesses[i]['result']
+		result = guesses[i]['preValue']
 		if t == today:
 			#为序列赋值
 			preDate[id-1] = result

@@ -39,9 +39,6 @@ router.route('/results/trainData')
 		});
 	});
 
-//判断当前是否是交易时间
-
-
 //获取今天的时间
 function today(){
 	var d = new Date();

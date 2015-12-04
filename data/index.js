@@ -13,6 +13,8 @@ exports.schedule = function(){
 	predict()
 	//每秒更新沪深300的数据
 	updateHS300()
+	//每天三点更新排名
+	updateRank()
 }
 
 
@@ -23,8 +25,19 @@ exports.ciaSync = function(){
 	spider.ciaSync()
 }
 
+
+// 辅助函数
+// =============================================================================
 function predict(){
 	schedule.scheduleJob(config["predict"],function(){
+		if(tradeTime(today())){
+			analyse.predict();
+		}
+	});
+}
+
+function updateRank(){
+	schedule.scheduleJob(config["updateRank"],function(){
 		if(tradeTime(today())){
 			analyse.predict();
 		}

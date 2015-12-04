@@ -3,8 +3,9 @@ module.exports = function(sequelize, DataTypes) {
 
 	var time = today();
   	var Guess = sequelize.define("Guess", {
-		result: DataTypes.INTEGER,
-		time: {type:DataTypes.STRING, defaultValue:time}
+		preValue: {type:DataTypes.INTEGER,defaultValue:0},
+		time: {type:DataTypes.STRING, defaultValue:time},
+		trueValue : {type:DataTypes.INTEGER,defaultValue:0}
 	});
   	return Guess;
 };

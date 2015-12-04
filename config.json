@@ -11,14 +11,16 @@
     "host":"localhost",
     "port":"4444",
     "predict":"1 1 9 * * *",
-    "updateHS300":"1 * * * * *"
+    "updateHS300":"1 * * * * *",
+    "updateRank":"0 0 15 * * *"
 
   },
   "production": {
     "host":"123.57.138.73",
     "port":"4444",
     "predict":"1 1 9 * * *",
-    "updateHS300":"1 * * * * *"
+    "updateHS300":"1 * * * * *",
+    "updateRank":"0 0 15 * * *"
   },
   "analyse" : {
     "url":"http://localhost:4444",
