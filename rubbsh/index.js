@@ -1,6 +1,7 @@
 var express = require('express');
 var User = require('../db/models').User;
 var Result = require('../db/models').Result;
+var Guess = require('../db/models').Guess;
 var weixin = require('../weixin');
 var router = express.Router();
 
@@ -10,9 +11,7 @@ var router = express.Router();
 ///////////////////////////////////////////////////
 router.get('/', function(req, res) {
   if (!req.session.user) {
-    //获取url
-    var url = weixin.getOathUrl();
-    res.redirect(url);
+    res.redirect('/login');
   }else{
     var time = today();
     var tradeAble = tradeTime(time);
@@ -32,7 +31,7 @@ router.get('/', function(req, res) {
   }
 });
 
-//用户个人主页，他人访问
+//用户个人主页
 ///////////////////////////////////////////////////
 router.get('/guesses/:userId',function(req,res){
   var time = today();
@@ -51,53 +50,60 @@ router.get('/guesses/:userId',function(req,res){
       user:req.session.user
     });
   });
-});
+})
 
-//用户个人主页，自己访问
+
+//琅琊榜页面
 ///////////////////////////////////////////////////
-router.get('/guesses/me',function(req,res){
-  if (!req.session.user) {
-    //获取url
-    var url = weixin.getOathUrl();
-    res.redirect(url);
-  }
-    var time = today();
-    var tradeAble = tradeTime(time);
-    var user = req.session.user;
-    var id = user.id;
-    Guess.findOrCreate({where:{time:time,UserId:id},defaults:{time:time,UserId:id}})
-    .spread(function(guess){
-      preValue = toStr(guess.preValue);
-      trueValue = toStr(guess.trueValue);
-      res.render('self', {
-        title: '个人主页',
-        time :time,
-        tradeAble:tradeAble,
-        preValue:preValue,
-        trueValue:trueValue,
-        user:req.session.user
-      });
-    });
-  }
-});
-
-
-
-//OAUTH验证
-///////////////////////////////////////////////////
-router.get('/oauth',function(req,res){
-  var code = req.query.code;
-  //获取用户信息
-  weixin.getUserInfo(code,function(user){
-    User.findOrCreate({where:{username:user.nickname},defaults:{username:user.nickname,password:"123456"}})
-    .spread(function(user){
-      req.session.user = user;
-      res.redirect('/');
-    });
+router.get('/ranklist',function(req,res){
+  var time = today();
+  User.findAll().then(function(users){
+    res.render('ranklist',{
+      users:users,
+      user:req.session.user,
+      title:'琅琊榜',
+      time:time
+    })
   });
 });
 
 
+
+
+//注册页面
+router.post('/reg',function(req,res){
+  var name = req.body.name,
+      password = req.body.password
+})
+
+//登陆页面
+///////////////////////////////////////////////////
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: '首页' });
+});
+
+//注册登陆模块
+///////////////////////////////////////////////////
+router.post('/login', function (req, res) {
+  //检查用户是否存在
+  User.findOne({where:{username:req.body.username}}).then(function (user) {
+    if (!user) {
+      res.redirect('/login');
+    }
+    //检查密码是否一致
+    if (user['dataValues'].password != req.body.password) {
+      res.redirect('/login');
+    }
+    //用户名密码都匹配后，将用户信息存入 session
+    req.session.user = user;
+    res.redirect('/');//登陆成功后跳转到竞猜页
+  });
+});
+
+router.get('/logout', function(req, res){
+  req.session.user = null;
+  res.redirect('/login');//返回首页
+});
 
 
 function toStr(value){

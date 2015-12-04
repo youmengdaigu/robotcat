@@ -51,5 +51,7 @@ module.exports = function(app){
 }
 
 
-
+// weixin.createMenu(function(r){
+//   console.log(r);
+// })
 

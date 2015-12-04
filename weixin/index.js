@@ -73,11 +73,11 @@ exports.createMenu = function(callback){
 			    {
 			    	"type":"view",
 					"name":"琅琊榜",
-					"url":"http://123.57.138.73"},
+					"url":"http://123.57.138.73/ranklist"},
 				{
 		    	"type":"view",
 				"name":"我的主页",
-				"url":"http://123.57.138.73"}]
+				"url":"http://123.57.138.73/guesses/me"}]
 			},
 			json: true
 		};
