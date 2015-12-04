@@ -1,8 +1,10 @@
 var express = require('express');
 var User = require('../db/models').User;
 var Result = require('../db/models').Result;
+var Guess = require('../db/models').Guess;
 var weixin = require('../weixin');
 var router = express.Router();
+
 
 
 
