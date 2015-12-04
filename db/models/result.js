@@ -5,7 +5,7 @@ module.exports = function(sequelize, DataTypes) {
   	var Result = sequelize.define("Result", {
 		preValue: {type:DataTypes.INTEGER,defaultValue:0},
 		trueValue : {type:DataTypes.INTEGER,defaultValue:0},
-		time: {type:DataTypes.STRING, defaultValue:time,unique:true}
+		time: {type:DataTypes.STRING, defaultValue:time,unique:true},
 	});
   	return Result;
 };

@@ -15,13 +15,20 @@ def updateHS300():
 	elif a == 0:
 		save(0,time)
 
+
 #将HS300数据存储到数据库中
 def save(trueValue,time):
 	c = config()
 	data ={'trueValue':trueValue,'time':time}
-	url = c['url']+'/api/results'
-	r = requests.post(url,data=data)
-	print r.text.encode('utf8')
+	url1 = c['url']+'/api/results'
+	r1 = requests.post(url1,data=data)
+	url2 = c['url']+'/api/guesses/update'
+	r2 = requests.post(url2,data=data)
+	print r1.text.encode("utf8")
+	print r2.text.encode("utf8")
+
+
+
 
 #获取HS300的数据
 def getHS300():

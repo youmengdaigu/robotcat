@@ -14,5 +14,18 @@ router.route('/users/totalNum')
 	});
 
 
+//更新一个用户的信息
+router.route('/users/:id')
+	.post(function(req,res){
+		var id = req.params.id;
+		var rate = req.body.rate;
+		User.findOne({where:{id:id}}).then(function(user){
+			user.rate = rate;
+			user.save().then(function(){
+				res.send("正确率保存成功！");
+			});
+		});
+	});
+
 
 module.exports = router;

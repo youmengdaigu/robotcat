@@ -41,8 +41,8 @@ def saveData(data,timelabel):
 		#更新guesses数据
 		for j in xrange(0,len(guesses)-1):
 			UserId = j+1
-			result = guesses[j]
-			guessData = {'UserId':UserId,'result':result,'time':time}
+			preValue = guesses[j]
+			guessData = {'UserId':UserId,'preValue':preValue,'trueValue':trueValue,'time':time}
 			postData('/api/guesses',guessData)
 
 ######################################################################
