@@ -63,7 +63,7 @@ router.get('/guesses/:userId',function(req,res){
 
 //用户个人主页，自己访问
 ///////////////////////////////////////////////////
-router.get('/guesses/me',function(req,res){
+router.get('/me',function(req,res){
   var time = today();
   var tradeAble = tradeTime(time);
   var user = req.session.user;
