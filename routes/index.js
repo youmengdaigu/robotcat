@@ -37,27 +37,6 @@ router.get('/', function(req, res) {
 //用户个人主页，他人访问
 ///////////////////////////////////////////////////
 router.get('/guesses/:userId',function(req,res){
-  var time = today();
-  var tradeAble = tradeTime(time);
-  var id = req.params.userId;
-  Guess.findOrCreate({where:{time:time,UserId:id},defaults:{time:time,UserId:id}})
-  .spread(function(guess){
-    preValue = toStr(guess.preValue);
-    trueValue = toStr(guess.trueValue);
-    res.render('self', {
-      title: '个人主页',
-      time :time,
-      tradeAble:tradeAble,
-      preValue:preValue,
-      trueValue:trueValue,
-      user:req.session.user
-    });
-  });
-});
-
-//用户个人主页，自己访问
-///////////////////////////////////////////////////
-router.get('/guesses/me',function(req,res){
   if (!req.session.user) {
     //获取url
     var url = weixin.getOathUrl();
@@ -65,8 +44,7 @@ router.get('/guesses/me',function(req,res){
   }else{
     var time = today();
     var tradeAble = tradeTime(time);
-    var user = req.session.user;
-    var id = user.id;
+    var id = req.params.userId;
     Guess.findOrCreate({where:{time:time,UserId:id},defaults:{time:time,UserId:id}})
     .spread(function(guess){
       preValue = toStr(guess.preValue);
@@ -81,6 +59,28 @@ router.get('/guesses/me',function(req,res){
       });
     });
   }
+});
+
+//用户个人主页，自己访问
+///////////////////////////////////////////////////
+router.get('/guesses/me',function(req,res){
+  var time = today();
+  var tradeAble = tradeTime(time);
+  var user = req.session.user;
+  var id = user.id;
+  Guess.findOrCreate({where:{time:time,UserId:id},defaults:{time:time,UserId:id}})
+  .spread(function(guess){
+    preValue = toStr(guess.preValue);
+    trueValue = toStr(guess.trueValue);
+    res.render('self', {
+      title: '个人主页',
+      time :time,
+      tradeAble:tradeAble,
+      preValue:preValue,
+      trueValue:trueValue,
+      user:req.session.user
+    });
+  });
 });
 
 
