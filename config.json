@@ -23,7 +23,7 @@
     "updateRank":"0 0 15 * * *"
   },
   "analyse" : {
-    "url":"http://localhost:4444",
+    "url":"http://123.57.138.73",
     "untradeTime":["20151128","20151129"]
   }
 }
