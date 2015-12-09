@@ -23,7 +23,7 @@ router.get('/', function(req, res) {
       preValue = toStr(result.preValue);
       trueValue = toStr(result.trueValue);
       res.render('index', {
-        title: '竞猜页',
+        title: '猜涨跌',
         time :time,
         tradeAble:tradeAble,
         preValue:preValue,
