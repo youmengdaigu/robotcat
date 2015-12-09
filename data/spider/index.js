@@ -19,7 +19,7 @@ exports.updateHS300 = function(){
 
 
 //更新RANK
-exports.updateHS300 = function(){
+exports.updateRank= function(){
 	exec('python ../data/spider/rank.py',{
 		maxBuffer: 5000 * 1024
 	})

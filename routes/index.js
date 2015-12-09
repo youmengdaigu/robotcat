@@ -93,7 +93,7 @@ router.get('/ranklist',function(req,res){
     res.redirect(url);
   }else{
     var time = today();
-    User.findAll().then(function(users){
+    User.findAll({order:'rate desc'}).then(function(users){
       res.render('ranklist',{
         users:users,
         user:req.session.user,

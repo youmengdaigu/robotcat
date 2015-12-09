@@ -12,17 +12,17 @@
 </head>
 <body>
   <!-- 头部 -->
-  <nav class="light-blue darken-4 z-depth-4" role="navigation">
+  <nav class="light-blue darken-4" role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo white-text">CIA预测</a>
       <ul class="right hide-on-med-and-down">
         <% if(user){%>
-        <li><a href="/guesses/<%=user.id%>">个人主页</a></li>
-        <li><a href="/">模型预测</a></li>
-         <li><a href="/ranklist">琅琊榜</a></li>
-        <li><a href="/logout">退出</a></li>
+        <li><a href="/guesses/<%=user.id%>" class="white-text">个人主页</a></li>
+        <li><a href="/" class="white-text">模型预测</a></li>
+         <li><a href="/ranklist" class="white-text">琅琊榜</a></li>
+        <li><a href="/logout" class="white-text">退出</a></li>
         <% }else{ %>
-        <li><a href="/login">登陆</a></li>
+        <li><a href="/login" class="white-text">登陆</a></li>
         <% } %>
 
       </ul>
@@ -56,14 +56,6 @@
       <div class="col s6 center">沪深300<h4><%= trueValue %></h4></div>
       <div class="col s6 center">我的预测<h4><%= preValue %></h4></div>
     </div>
-  </div>
-  <div class="row center">
-    <% if(tradeAble){ %>
-      <button id = "up" class="btn waves-effect waves-light red lighten-1">猜涨</button>
-      <button id = "down" class="btn waves-effect waves-light  lighten-1">猜跌</button>
-    <% }else{%>
-      <p class="grey-text"> 非交易日</p>
-    <% }%>
   </div>
 
 

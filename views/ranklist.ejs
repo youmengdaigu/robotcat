@@ -12,19 +12,18 @@
 </head>
 <body>
   <!-- 头部 -->
-  <nav class="light-blue darken-4 z-depth-4" role="navigation">
+  <nav class="light-blue darken-4 " role="navigation">
     <div class="nav-wrapper container">
       <a id="logo-container" href="#" class="brand-logo white-text">CIA预测</a>
       <ul class="right hide-on-med-and-down">
         <% if(user){%>
-        <li><a href="/guesses/<%=user.id%>">个人主页</a></li>
-        <li><a href="/">模型预测</a></li>
-         <li><a href="/ranklist">琅琊榜</a></li>
-        <li><a href="/logout">退出</a></li>
+        <li><a href="/guesses/<%=user.id%>" class="white-text">个人主页</a></li>
+        <li><a href="/" class="white-text">模型预测</a></li>
+         <li><a href="/ranklist" class="white-text">琅琊榜</a></li>
+        <li><a href="/logout" class="white-text">退出</a></li>
         <% }else{ %>
-        <li><a href="/login">登陆</a></li>
+        <li><a href="/login" class="white-text">登陆</a></li>
         <% } %>
-
       </ul>
 
       <ul id="nav-mobile" class="side-nav">
@@ -37,18 +36,29 @@
         <li><a href="/login">登陆</a></li>
         <% } %>
       </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons ">menu</i></a>
     </div>
   </nav>
 
-
-
+  <div class="container">
+  <br>
+  <div class="row">
+      <div class="col s4">排名</div>
+      <div class="col s4 center">名字</div>
+      <div class="col s4 "><div class="right">准确率</div></div>
+  </div>
+  <% users.forEach(function(u,i){ %>
+    <div class="row">
+      <div class="col s2"><%=i+1%></div>
+      <div class="col s8 center"><a class = "center" href="/guesses/<%= u.id %>"><%= u.username %></a></div>
+      <div class="col s2"><div class="left"><%= u.rate %></div></div>
+    </div>
+  <% });%>
+  </div>
   <!--  Scripts-->
   <script src="/bower_components/jquery/dist/jquery.min.js"></script>
   <script src="/bower_components/Chart.js/Chart.min.js"></script>
   <script src="/bower_components/Materialize/dist/js/materialize.min.js"></script>
-  <script src="/js/self.js"></script>
   <script src="/js/init.js"></script>
-
   </body>
 </html>

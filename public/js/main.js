@@ -4,7 +4,7 @@
 		$.ajax({
 	        url: url,
 	        type: 'POST',
-	        data: "result=1",
+	        data: "preValue=1",
 	        success: function(response) {
 				Materialize.toast(response, 1000);
 	        },
@@ -18,7 +18,7 @@
 		$.ajax({
 	        url: url,
 	        type: 'POST',
-	        data: "result=-1",
+	        data: "preValue=-1",
 	        success: function(response) {
 				Materialize.toast(response, 1000);
 	        },

@@ -20,6 +20,7 @@ router.route('/guesses')
 		var preValue = req.body.preValue;
 		var trueValue = req.body.trueValue;
 		var time = req.body.time;
+		console.log(UserId)
 		Guess.findOrCreate({where:{UserId:UserId,time:time},defaults:{UserId:UserId,preValue:preValue,trueValue:trueValue,time:time}})
 		.spread(function(guess){
 			guess.preValue = preValue;
@@ -60,6 +61,7 @@ router.route('/guesses/me')
 		var user = req.session.user;
 		var preValue = req.body.preValue;
 		var trueValue = req.body.trueValue;
+		console.log(preValue);
 		var time = today();
 		Guess.findOrCreate({where:{UserId:user.id,time:time},defaults:{UserId:user.id,preValue:preValue,time:time}})
 		.spread(function(guess){

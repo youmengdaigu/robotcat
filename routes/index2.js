@@ -1,15 +1,14 @@
 var express = require('express');
 var User = require('../db/models').User;
 var Result = require('../db/models').Result;
+var Guess = require('../db/models').Guess;
 var weixin = require('../weixin');
 var router = express.Router();
-
 
 
 //竞猜页面
 ///////////////////////////////////////////////////
 router.get('/', function(req, res) {
-  console.log(req.session.user);
   if (!req.session.user) {
     res.redirect('/login');
   }else{
@@ -30,6 +29,75 @@ router.get('/', function(req, res) {
     });
   }
 });
+
+
+//用户个人主页，他人访问
+///////////////////////////////////////////////////
+router.get('/guesses/:userId',function(req,res){
+  if (!req.session.user) {
+    res.redirect('/login');
+  }else{
+    var time = today();
+    var tradeAble = tradeTime(time);
+    var id = req.params.userId;
+    Guess.findOrCreate({where:{time:time,UserId:id},defaults:{time:time,UserId:id}})
+    .spread(function(guess){
+      preValue = toStr(guess.preValue);
+      trueValue = toStr(guess.trueValue);
+      res.render('self', {
+        title: '个人主页',
+        time :time,
+        tradeAble:tradeAble,
+        preValue:preValue,
+        trueValue:trueValue,
+        user:req.session.user
+      });
+    });
+  }
+});
+
+//用户个人主页，自己访问
+///////////////////////////////////////////////////
+router.get('/me',function(req,res){
+  var time = today();
+  var tradeAble = tradeTime(time);
+  var user = req.session.user;
+  var id = user.id;
+  Guess.findOrCreate({where:{time:time,UserId:id},defaults:{time:time,UserId:id}})
+  .spread(function(guess){
+    preValue = toStr(guess.preValue);
+    trueValue = toStr(guess.trueValue);
+    res.render('self', {
+      title: '个人主页',
+      time :time,
+      tradeAble:tradeAble,
+      preValue:preValue,
+      trueValue:trueValue,
+      user:req.session.user
+    });
+  });
+});
+
+
+//琅琊榜页面
+///////////////////////////////////////////////////
+router.get('/ranklist',function(req,res){
+  if (!req.session.user) {
+      res.redirect('/login');
+  }else{
+    var time = today();
+    User.findAll({order:'rate desc'}).then(function(users){
+      res.render('ranklist',{
+        users:users,
+        user:req.session.user,
+        title:'琅琊榜',
+        time:time
+      })
+    });
+  }
+});
+
+
 
 //注册页面
 router.post('/reg',function(req,res){
