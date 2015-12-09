@@ -14,8 +14,11 @@ module.exports = function(app){
     // 微信输入信息都在req.weixin上
     var message = req.weixin;
     console.log(message);
+    if (message.Event ==='subscribe'){
+      // 用户首次登陆时发消息提示
+      res.reply('欢迎使用CIA云投研系统，当前推出【沪深300猜涨跌】活动，您可以点击菜单中猜涨跌选项参与；点击琅琊榜可以看到自己的排名；点击个人主页可以查看竞猜历史。')
 
-    if (message.FromUserName === 'ojFjxwPPT21s-J-50L8w86a-IJDQ') {
+    }else if (message.FromUserName === 'ojFjxwPPT21s-J-50L8w86a-IJDQ') {
       // 回复屌丝(普通回复)
       res.reply('hehe');
     } else if (message.FromUserName === 'text') {
