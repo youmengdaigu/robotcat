@@ -32,16 +32,19 @@ def getData(fileName):
 
 def saveData(data,timelabel):
 	for i in xrange(0,len(timelabel)):
-		time = timelabel[i]
-		guesses = data[i,:-1]
-		trueValue = data[i,-1]
+		location = len(timelabel)-i-1
+		time = timelabel[location]
+		guesses = data[location,1:]
+		trueValue = data[location,0]
 		#更新result数据
 		preData = {'time':time,'trueValue':trueValue}
 		postData('/api/results',preData)
 		#更新guesses数据
-		for j in xrange(0,len(guesses)-1):
+		for j in xrange(0,len(guesses)):
 			UserId = j+1
+			print UserId
 			preValue = guesses[j]
+			print preValue
 			guessData = {'UserId':UserId,'preValue':preValue,'trueValue':trueValue,'time':time}
 			postData('/api/guesses',guessData)
 

@@ -39,7 +39,7 @@ function predict(){
 function updateRank(){
 	schedule.scheduleJob(config["updateRank"],function(){
 		if(tradeTime(today())){
-			analyse.predict();
+			spider.updateRank();
 		}
 	});
 }

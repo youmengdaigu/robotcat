@@ -12,7 +12,7 @@
     "port":"4444",
     "predict":"1 1 9 * * *",
     "updateHS300":"1 * * * * *",
-    "updateRank":"0 0 15 * * *"
+    "updateRank":"0 52 10 * * *"
 
   },
   "production": {
@@ -20,10 +20,10 @@
     "port":"4444",
     "predict":"1 1 9 * * *",
     "updateHS300":"1 * * * * *",
-    "updateRank":"0 0 15 * * *"
+    "updateRank":"0 51 10 * * *"
   },
   "analyse" : {
     "url":"http://localhost:4444",
-    "untradeTime":["20151128","20151129"]
+    "untradeTime":["20151128","20151129","2015125","2015126"]
   }
 }
